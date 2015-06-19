@@ -1,0 +1,13 @@
+{
+	"name": "urlshortener-nodejs",
+	"description": "URL shortener using redis",
+	"dependencies": {
+		"base62": "1.1.0",
+		"redis": "0.12.1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/fguy/urlshortener-nodejs.git"
+	},
+	"license": "MIT"
+}

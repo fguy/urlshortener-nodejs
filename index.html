@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>URL Shortener Prototype</title>
+</head>
+<body>
+	<h1>URL Shortener</h1>
+	<form id="form" method="PUT">
+		<input type="url" id="url" placeholder="Type url here...">
+		<input type="submit">
+	</form>
+	<dl id="results">
+		<script type="text/mustache-tempalte" id="result-row">
+			<dt>http://{{{ host }}}/{{{id}}}</dt>
+			<dd>{{{url}}}</dd>
+		</script>
+	</dl>
+	
+	<script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+	<script type="text/javascript">
+		$.ajaxSetup({
+			url: "/"
+		});
+		var template = $("#result-row").html();
+		Mustache.parse(template); //speed up
+		$("#form").submit(function(event) {
+			event.preventDefault();
+			var url = $("#url").val();
+			$.ajax({
+    			type: "PUT",
+    			data: url,
+    			success: function(result) {
+					$("#results").prepend(Mustache.render(template, {
+						host: location.host,
+						url: url,
+						id: result
+					}));
+				}
+			});
+		});
+	</script>
+</body>
+</html>
